@@ -16,6 +16,9 @@ sumcoal <- with(coal, aggregate(Emissions, by = list(year), sum))
 colnames(sumcoal) <- c("year", "Emissions")
 
 png('plot4.png')
-plot(sumcoal, type = "o", ylab = expression("Total Emissions, PM"[2.5]), 
-     xlab = "Year", main = "Total US Coal Combustion")
+barplot(height=sumcoal$Emissions, names.arg=sumcoal$year, ylab = expression("Total Emissions, PM"[2.5]), 
+        xlab = "Year", main = "Total Emissions from Vehicles in Baltimore", col="red",,border="blue")
+
+##plot(sumcoal, type = "o", ylab = expression("Total Emissions, PM"[2.5]), 
+     ##xlab = "Year", main = "Total US Coal Combustion")
 dev.off()
