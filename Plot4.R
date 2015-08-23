@@ -7,15 +7,15 @@ SCC <- readRDS("Source_Classification_Code.rds")
 
 coalindex <- grep("coal", SCC$Short.Name, ignore.case = TRUE)
 coalSource <- SCC[coalindex, ]
-SCC.identifiers <- as.character(coalSource$SCC)
+SCCID <- as.character(coalSource$SCC)
 
 NEI$SCC <- as.character(NEI$SCC)
-NEI.coal <- NEI[NEI$SCC %in% SCC.identifiers, ]
+coal <- NEI[NEI$SCC %in% SCCID, ]
 
-aggregate.coal <- with(NEI.coal, aggregate(Emissions, by = list(year), sum))
-colnames(aggregate.coal) <- c("year", "Emissions")
+sumcoal <- with(coal, aggregate(Emissions, by = list(year), sum))
+colnames(sumcoal) <- c("year", "Emissions")
 
 png('plot4.png')
-plot(aggregate.coal, type = "o", ylab = expression("Total Emissions, PM"[2.5]), 
+plot(sumcoal, type = "o", ylab = expression("Total Emissions, PM"[2.5]), 
      xlab = "Year", main = "Total US Coal Combustion")
 dev.off()
